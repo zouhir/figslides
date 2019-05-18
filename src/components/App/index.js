@@ -1,7 +1,7 @@
 import { Component } from 'preact';
 import { Router } from 'preact-router';
 import Home from 'async!@pages/Home';
-import style from './index.sass';
+import style from './index.scss';
 
 export default class App extends Component {
 	onRoute = e => {

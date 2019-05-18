@@ -1,4 +1,4 @@
-import style from './index.sass';
+import style from './index.scss';
 
 export default function () {
 	return (

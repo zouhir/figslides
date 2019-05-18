@@ -1,7 +1,7 @@
 import GAnalytics from 'ganalytics';
 import { h, render } from 'preact';
 import App from '@components/App';
-import './index.sass';
+import './styles/index.scss';
 
 let elem = document.querySelector('#app');
 let root = render(<App/>, elem, elem.firstElementChild);
