@@ -12,11 +12,20 @@ export default class App extends Component {
   state = {
     oAuthPopup: null,
     oAuthSecret: null,
-    oAuthCode: null
+    oAuthCode: null,
+    accessToken: null
   };
 
   componentDidMount() {
     window.addEventListener("message", this.onOAuthMessage, false);
+    let accessToken = localStorage.getItem("access_token");
+    let expiry = localStorage.getItem("expires_in");
+    let refreshToken = localStorage.getItem("refresh_token");
+    let now = new Date().getTime();
+    expiry = +expiry;
+    if (accessToken && now < expiry) {
+      this.setState({ accessToken }, () => route("/projects"));
+    }
   }
 
   onRoute = e => {
@@ -42,7 +51,11 @@ export default class App extends Component {
       let { access_token, expires_in, refresh_token } = res;
       //TODO: either use cookies or idb
       localStorage.setItem("access_token", access_token);
-      localStorage.setItem("expires_in", expires_in);
+      // expiries in is time in seconds (can be equal to ~90 days) convert it to milliseconds timestamp for easier compariosn
+      localStorage.setItem(
+        "expires_in",
+        new Date().getTime() + expires_in * 1000
+      );
       localStorage.setItem("refresh_token", refresh_token);
       this.onAuthSuccess();
     });
@@ -50,7 +63,7 @@ export default class App extends Component {
 
   onAuthSuccess = () => {
     //redirect the user to projects page
-    route('/projects');
+    route("/projects");
   };
 
   onOAuthMessage = e => {
@@ -73,7 +86,7 @@ export default class App extends Component {
     }
   };
 
-  render() {
+  render(props, state) {
     return (
       <div class={style.app}>
         App layout
@@ -82,7 +95,7 @@ export default class App extends Component {
           <Router onChange={this.onRoute}>
             <Home path="/" />
             <Auth path="/auth" />
-            <Projects path="/projects" />
+            <Projects path="/projects" accessToken={this.state.accessToken} />
           </Router>
         </main>
       </div>
