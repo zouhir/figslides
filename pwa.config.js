@@ -8,6 +8,7 @@ exports.webpack = function (config, env) {
   config.plugins.push(
     new webpack.DefinePlugin({
       APP_ORIGIN: "'http://localhost:8080'",
+      FIGMA_API_ORIGIN: "'https://api.figma.com'",
       OAUTH_URL: "'https://www.figma.com/oauth'",
       OAUTH_CALLBACK: production ? "'https://figslides.com/auth'" : "'http://localhost:8080/auth'",
       OAUTH_CLIENT_ID: `"${keys.DEV_OAUTH_CLIENT_ID}"`,

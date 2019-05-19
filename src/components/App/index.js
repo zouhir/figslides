@@ -3,28 +3,37 @@ import { Router, route } from "preact-router";
 import style from "./index.scss";
 
 import { initOAuth, getAccessToken } from "../../utility/oauth";
+import Api from "../../api";
+import Models from "../../models";
 
+// pages
 import Home from "@pages/Home";
 import Auth from "@pages/Auth";
 import Projects from "@pages/Projects";
+
+// components
+import Header from "@components/Header";
 
 export default class App extends Component {
   state = {
     oAuthPopup: null,
     oAuthSecret: null,
     oAuthCode: null,
-    accessToken: null
+    accessToken: null,
+    refreshToken: null,
+    user: null
   };
 
   componentDidMount() {
     window.addEventListener("message", this.onOAuthMessage, false);
     let accessToken = localStorage.getItem("access_token");
-    let expiry = localStorage.getItem("expires_in");
     let refreshToken = localStorage.getItem("refresh_token");
+    let expiry = localStorage.getItem("expires_in");
+    // let refreshToken = localStorage.getItem("refresh_token");
     let now = new Date().getTime();
     expiry = +expiry;
     if (accessToken && now < expiry) {
-      this.setState({ accessToken }, () => route("/projects"));
+      this.setState({ accessToken, refreshToken }, this.onAuthSuccess);
     }
   }
 
@@ -57,13 +66,22 @@ export default class App extends Component {
         new Date().getTime() + expires_in * 1000
       );
       localStorage.setItem("refresh_token", refresh_token);
-      this.onAuthSuccess();
+      this.setState(
+        { accessToken: access_token, refreshToken: refresh_token },
+        this.onAuthSuccess
+      );
     });
   };
 
   onAuthSuccess = () => {
     //redirect the user to projects page
-    route("/projects");
+    Api.User.me(this.state.accessToken).then(figmaUser => {
+      let user = new Models.User(figmaUser);
+      this.setState({ user }, () => {
+        route("/projects");
+      });
+    });
+    
   };
 
   onOAuthMessage = e => {
@@ -89,13 +107,13 @@ export default class App extends Component {
   render(props, state) {
     return (
       <div class={style.app}>
-        App layout
-        <button onClick={this.onLoginClick}>Login to figma</button>
+        <Header onLoginClick={this.onLoginClick} user={state.user} />
+
         <main class={style.wrapper}>
           <Router onChange={this.onRoute}>
             <Home path="/" />
             <Auth path="/auth" />
-            <Projects path="/projects" accessToken={this.state.accessToken} />
+            <Projects path="/projects" accessToken={this.state.accessToken} user={state.user}/>
           </Router>
         </main>
       </div>
