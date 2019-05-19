@@ -10,3 +10,7 @@
 *.ntvs*
 *.njsproj
 *.sln
+
+# project secret keys
+keys.json
+
