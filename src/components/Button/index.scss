@@ -1,0 +1,25 @@
+.button {
+  height: 35px;
+  padding: 0px 20px;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px;
+  color: var(--color-dark);
+  background-color: #fff;
+  border-color: var(--color-light);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  transition: background 0.2s, border-color 0.2s;
+  width: 100%;
+  justify-content: center;
+  &.primary {
+    background: var(--color-purple);
+    border-color: var(--color-purple);
+    color: #fff;
+    &:hover {
+      background: var(--color-purple-lighten);
+      border-color: var(--color-purple-lighten);
+    }
+  }
+}

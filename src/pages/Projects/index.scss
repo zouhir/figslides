@@ -1,0 +1,16 @@
+.container {
+  width: 100%;
+  padding: var(--gutter);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.formCard {
+  color: 1px solid rgba(230, 230, 230, 0.7);
+  background: #FFF;
+  padding: var(--gutter);
+  max-width: 600px;
+  width: 100%;
+  margin-top: 50px;
+}

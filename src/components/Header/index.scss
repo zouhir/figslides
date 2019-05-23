@@ -1,0 +1,31 @@
+.header {
+  background: #fff;
+  position: relative;
+  display: flex;
+  height: 60px;
+  width: 100%;
+  padding: 0 20px 0 20px;
+  z-index: 800;
+  border-bottom: 1px solid rgba(225, 225, 225, 0.7);
+  align-items: center;
+  justify-content: space-between;
+  color: var(--color-dark);
+}
+
+.nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  .username {
+    margin-right: 10px;
+    letter-spacing: 0.2px;
+  }
+  .logo {
+    height: 32px;
+    width: 32px;
+    background-position: center;
+    background-size: cover;
+    background-position: center;
+    border-radius: 100%;
+  }
+}

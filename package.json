@@ -6,6 +6,7 @@
     "watch": "pwa watch"
   },
   "dependencies": {
+    "clsx": "^1.0.4",
     "ganalytics": "^3.0.0",
     "preact": "^8.3.0",
     "preact-compat": "^3.18.0",

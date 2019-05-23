@@ -1,17 +1,28 @@
+import style from "./index.scss";
+
+import Button from '@components/Button';
+
 export default function Header(props) {
-  console.log(props.user)
   return (
-    <header>
-      {props.user === null ? (
-        <button onClick={props.onLoginClick}>
-          Login using your figma account!
-        </button>
-      ) : (
-        <div>
-          <b>{props.user.name}</b>
-          <img src={props.user.avatar} />
-        </div>
-      )}
+    <header class={style.header}>
+      <div class={style.logo}>FIGSLIDES</div>
+      <div class={style.nav}>
+        {props.user === null ? (
+          <button onClick={props.onLoginClick}>
+            Login using your figma account!
+          </button>
+        ) : (
+          <div class={style.nav}>
+            <div class={style.username}>{props.user.name}</div>
+            <div
+              class={style.logo}
+              role="img"
+              aria-label="avatar"
+              style={{ backgroundImage: `url(${props.user.avatar})` }}
+            />
+          </div>
+        )}
+      </div>
     </header>
   );
 }
