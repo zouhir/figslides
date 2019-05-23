@@ -11,6 +11,9 @@ h6 {
   -ms-text-size-adjust: 100%;
   font-weight: 300;
   color: var(--color-darker);
+  b {
+    font-weight: 500;
+  }
 }
 
 body, p {
@@ -42,7 +45,7 @@ h5 {
 @include lg {
   body, p {
     font-size: 14px;
-    line-height: 20px;
+    line-height: 22px;
   }
   h1 {
     font-size: 44px;

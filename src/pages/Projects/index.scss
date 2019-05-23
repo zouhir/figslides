@@ -6,11 +6,11 @@
   align-items: center;
 }
 
-.formCard {
-  color: 1px solid rgba(230, 230, 230, 0.7);
-  background: #FFF;
-  padding: var(--gutter);
-  max-width: 600px;
-  width: 100%;
-  margin-top: 50px;
+.highlight {
+  background: var(--color-yellow-lighten)
+}
+.error {
+  color: var(--color-red);
+  margin-top: -15px;
+  font-size: 13px;
 }
